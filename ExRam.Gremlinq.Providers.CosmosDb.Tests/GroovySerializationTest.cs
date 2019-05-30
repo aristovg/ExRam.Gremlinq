@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -10,6 +11,19 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class GroovySerializationTest : GroovySerializationTest<CosmosDbGroovyGremlinQueryElementVisitor>
     {
+
+        [Fact]
+        public void M()
+        {
+            M1<Person>(g).Should().SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("");
+        }
+
+        public IVertexGremlinQuery<TAged> M1<TAged>(IConfigurableGremlinQuerySource source) where TAged : IAged
+        {
+            return source.V<TAged>().Where(x => x.Age == 42);
+        }
+
+
         [Fact]
         public void Limit_overflow()
         {

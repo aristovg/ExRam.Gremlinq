@@ -3,7 +3,14 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class Person : Authority
+    public interface IAged
+    {
+         int Age { get; set; }
+
+    }
+
+
+    public class Person : Authority, IAged
     {
         public VertexProperty<string>[] PhoneNumbers  { get; set; }
 
